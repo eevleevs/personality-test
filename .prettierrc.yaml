@@ -1,0 +1,12 @@
+arrowParens: avoid
+bracketSpacing: false
+embeddedLanguageFormatting: off
+pugAttributeSeparator: none
+pugSingleQuote: false
+pugSortAttributes: asc
+pugSortAttributesEnd: ['@', ':(?!class)', ':class']
+semi: false
+singleQuote: true
+tabWidth: 2
+trailingComma: es5
+useTabs: false

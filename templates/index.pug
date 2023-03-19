@@ -1,0 +1,66 @@
+doctype html
+html
+  head
+    title Personality test
+    link(href="chota.css" rel="stylesheet")
+    style.
+      .container {
+        width: 50em;
+      }
+
+  body.container(x-data="body")
+    script.
+      if (window?.matchMedia("(prefers-color-scheme: dark)").matches) document.body.classList.add("dark")
+    nav.nav
+      .nav-left: .brand Personality test
+
+    template(x-if="page=='landing'"): .card
+      p Welcome to the personality test. Answer a few questions to know if you are introvert or extrovert.
+      button.primary(@click="_start()") Start
+
+    template(x-if="page=='question'"): .card
+      p(
+        x-text="'Question ' + (numberOfQuestions-questions.length) + '/' + numberOfQuestions"
+      )
+      p: i(x-text="question")
+      template(x-for="(_, answer) in answers")
+        div(x-data="{id: $id('answer')}")
+          input(
+            name="answers"
+            type="radio"
+            x-ref="answers"
+            @change="nextPage(answer)"
+            :id="id"
+          )
+          label(x-text="answer" :for="id")
+
+    template(x-if="page=='result'"): .card
+      p(x-text="'You are an ' + result()")
+      button.primary(@click="_start()") Try again
+
+    script(type="module").
+      import Alpine from "./alpinejs.esm.js"
+      import app from "./app.js"
+
+      Alpine.data("body", () => ({
+        ...app,
+        page: "landing",
+
+        async nextPage(answer) {
+          this.scoreAnswer(answer)
+          setTimeout(async () => {
+            if (await this.nextQuestion()) {
+              this.$refs.answers.checked = false
+            } else {
+              this.page = "result"
+            }
+          }, 200)
+        },
+
+        async _start() {
+          await this.start()
+          await this.nextQuestion()
+          this.page = "question"
+        },
+      }))
+      Alpine.start()
