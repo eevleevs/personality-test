@@ -8,13 +8,13 @@ import {
 
 const dirName = './templates/'
 
-export default Object.fromEntries(
-  Array.from(Deno.readDirSync(dirName))
-    .filter(f => f.name.endsWith('.pug'))
-    .map(f => [
-      f.name.slice(0, -4),
-      Deno.env.get('DEV')
-        ? (args: Options & LocalsObject) => renderFile(dirName + f.name, args)
-        : compileFile(dirName + f.name),
-    ])
-)
+export const templates: {
+  [key: string]: (args: Options & LocalsObject) => string
+} = {}
+
+for await (const {name} of Deno.readDir(dirName)) {
+  if (!name.endsWith('.pug')) continue
+  templates[name.slice(0, -4)] = Deno.env.get('DEV')
+    ? args => renderFile(dirName + name, args)
+    : compileFile(dirName + name)
+}

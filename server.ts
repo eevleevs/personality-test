@@ -3,7 +3,7 @@ import {Hono} from 'https://deno.land/x/hono@v3.1.0/mod.ts'
 import {serveStatic} from 'https://deno.land/x/hono@v3.1.0/middleware.ts'
 
 import questions from './questions.ts'
-import templates from './templates.ts'
+import {templates} from './templates.ts'
 
 const app = new Hono()
   .route(
