@@ -4,7 +4,7 @@ import {
   LocalsObject,
   Options,
   renderFile,
-} from 'https://deno.land/x/pug@v0.1.3/mod.ts'
+} from 'https://deno.land/x/pug@v0.1.5/mod.ts'
 
 const dirName = './templates/'
 
