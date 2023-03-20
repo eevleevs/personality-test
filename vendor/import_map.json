@@ -1,12 +1,6 @@
 {
   "imports": {
-    "https://cdn.esm.sh/": "./cdn.esm.sh/",
-    "https://deno.land/": "./deno.land/"
-  },
-  "scopes": {
-    "./cdn.esm.sh/": {
-      "/v56/node_process.js": "./cdn.esm.sh/v56/node_process.js",
-      "/v56/node_buffer.js": "./cdn.esm.sh/v56/node_buffer.js"
-    }
+    "https://deno.land/": "./deno.land/",
+    "https://esm.sh/": "./esm.sh/"
   }
 }
