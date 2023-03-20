@@ -1,6 +1,6 @@
 import 'https://deno.land/x/dotenv@v3.2.0/load.ts'
 import {
-  compileFile,
+  compile,
   LocalsObject,
   Options,
   renderFile,
@@ -16,5 +16,5 @@ for await (const {name} of Deno.readDir(dirName)) {
   if (!name.endsWith('.pug')) continue
   templates[name.slice(0, -4)] = Deno.env.get('DEV')
     ? args => renderFile(dirName + name, args)
-    : compileFile(dirName + name)
+    : compile(await Deno.readTextFile(dirName + name))
 }
